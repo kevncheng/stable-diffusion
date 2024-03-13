@@ -107,7 +107,7 @@ class State:
 
         return obj
 
-    def begin(self, job: str = "(unknown)"):
+    def begin(self, job: str = "(unknown)", page_id: str = None):
         self.sampling_step = 0
         self.time_start = time.time()
         self.job_count = -1
@@ -123,6 +123,7 @@ class State:
         self.stopping_generation = False
         self.textinfo = None
         self.job = job
+        self.page_id = page_id
         devices.torch_gc()
         log.info("Starting job %s", job)
 
