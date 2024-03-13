@@ -107,6 +107,7 @@ StableDiffusionTxt2ImgProcessingAPI = PydanticModelGenerator(
         {"key": "send_images", "type": bool, "default": True},
         {"key": "save_images", "type": bool, "default": False},
         {"key": "alwayson_scripts", "type": dict, "default": {}},
+        {"key": "page_id", "type": str, "default": None},
     ]
 ).generate_model()
 
@@ -124,6 +125,7 @@ StableDiffusionImg2ImgProcessingAPI = PydanticModelGenerator(
         {"key": "send_images", "type": bool, "default": True},
         {"key": "save_images", "type": bool, "default": False},
         {"key": "alwayson_scripts", "type": dict, "default": {}},
+        {"key": "page_id", "type": str, "default": None},
     ]
 ).generate_model()
 
@@ -188,7 +190,8 @@ class ProgressResponse(BaseModel):
     state: dict = Field(title="State", description="The current state snapshot")
     current_image: str = Field(default=None, title="Current image", description="The current image in base64 format. opts.show_progress_every_n_steps is required for this to work.")
     textinfo: str = Field(default=None, title="Info text", description="Info text used by WebUI.")
-
+    page_id: str = Field(default=None, title="Page Id", description="Page id provided by user.")
+    
 class InterrogateRequest(BaseModel):
     image: str = Field(default="", title="Image", description="Image to work on, must be a Base64 string containing the image's data.")
     model: str = Field(default="clip", title="Model", description="The interrogate model used.")

@@ -370,7 +370,7 @@ class Api:
                 p.outpath_samples = opts.outdir_txt2img_samples
 
                 try:
-                    shared.state.begin(job="scripts_txt2img")
+                    shared.state.begin(job="scripts_txt2img",page_id=txt2imgreq.page_id)
                     if selectable_scripts is not None:
                         p.script_args = script_args
                         processed = scripts.scripts_txt2img.run(p, *p.script_args) # Need to pass args as list here
@@ -431,7 +431,7 @@ class Api:
                 p.outpath_samples = opts.outdir_img2img_samples
 
                 try:
-                    shared.state.begin(job="scripts_img2img")
+                    shared.state.begin(job="scripts_img2img",page_id=img2imgreq.page_id)
                     if selectable_scripts is not None:
                         p.script_args = script_args
                         processed = scripts.scripts_img2img.run(p, *p.script_args) # Need to pass args as list here
@@ -511,7 +511,7 @@ class Api:
         if shared.state.current_image and not req.skip_current_image:
             current_image = encode_pil_to_base64(shared.state.current_image)
 
-        return models.ProgressResponse(progress=progress, eta_relative=eta_relative, state=shared.state.dict(), current_image=current_image, textinfo=shared.state.textinfo)
+        return models.ProgressResponse(progress=progress, eta_relative=eta_relative, state=shared.state.dict(), current_image=current_image, textinfo=shared.state.textinfo, page_id=shared.state.page_id)
 
     def interrogateapi(self, interrogatereq: models.InterrogateRequest):
         image_b64 = interrogatereq.image
